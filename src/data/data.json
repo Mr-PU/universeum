@@ -1,0 +1,90 @@
+{
+  "destinations": [
+    {
+      "id": 1,
+      "name": "Bali, Indonesia",
+      "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+      "price": "₹45,999",
+      "duration": "6 Days / 5 Nights",
+      "rating": 4.8,
+      "reviews": 234,
+      "description": "Tropical paradise with beaches and culture"
+    },
+    {
+      "id": 2,
+      "name": "Swiss Alps",
+      "image": "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80",
+      "price": "₹89,999",
+      "duration": "8 Days / 7 Nights",
+      "rating": 4.9,
+      "reviews": 189,
+      "description": "Majestic mountains and scenic landscapes"
+    },
+    {
+      "id": 3,
+      "name": "Maldives",
+      "image": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=80",
+      "price": "₹67,999",
+      "duration": "5 Days / 4 Nights",
+      "rating": 4.7,
+      "reviews": 312,
+      "description": "Luxury overwater villas and pristine beaches"
+    },
+    {
+      "id": 4,
+      "name": "Dubai, UAE",
+      "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80",
+      "price": "₹52,999",
+      "duration": "5 Days / 4 Nights",
+      "rating": 4.6,
+      "reviews": 278,
+      "description": "Modern architecture and desert adventures"
+    },
+    {
+      "id": 5,
+      "name": "Paris, France",
+      "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
+      "price": "₹78,999",
+      "duration": "7 Days / 6 Nights",
+      "rating": 4.9,
+      "reviews": 445,
+      "description": "City of love, art, and culinary delights"
+    },
+    {
+      "id": 6,
+      "name": "Santorini, Greece",
+      "image": "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&q=80",
+      "price": "₹71,999",
+      "duration": "6 Days / 5 Nights",
+      "rating": 4.8,
+      "reviews": 267,
+      "description": "White-washed buildings and stunning sunsets"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Priya Sharma",
+      "location": "Mumbai",
+      "image": "https://i.pravatar.cc/150?img=1",
+      "rating": 5,
+      "text": "Amazing experience! The Bali trip was perfectly organized. Every detail was taken care of."
+    },
+    {
+      "id": 2,
+      "name": "Rahul Verma",
+      "location": "Delhi",
+      "image": "https://i.pravatar.cc/150?img=3",
+      "rating": 5,
+      "text": "Best travel company! Our Maldives honeymoon was magical. Highly recommended."
+    },
+    {
+      "id": 3,
+      "name": "Anita Desai",
+      "location": "Bangalore",
+      "image": "https://i.pravatar.cc/150?img=5",
+      "rating": 5,
+      "text": "Professional service and great value for money. Will definitely book again!"
+    }
+  ]
+}
