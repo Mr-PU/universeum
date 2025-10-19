@@ -14,7 +14,7 @@ export default function Header() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <MapPin className="w-8 h-8 text-orange-500" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">WanderLux</span>
+              <span className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Universeum Expedition</span>
             </div>
             
             <nav className="hidden md:flex space-x-8">

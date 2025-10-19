@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'WanderLux - Travel Package Provider',
+  title: 'Universeum Expedition- Travel Package Provider',
   description: 'Discover amazing travel destinations and packages',
 };
 

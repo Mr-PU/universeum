@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <MapPin className="w-8 h-8 text-orange-500" />
-              <span className="text-2xl font-bold">WanderLux</span>
+              <span className="text-2xl font-bold">Universeum Expedition</span>
             </div>
             <p className="text-gray-400">
               Your trusted partner for unforgettable travel experiences around the globe.
@@ -45,7 +45,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span>info@wanderlux.com</span>
+                <span>info@UniverseumExpedition.com</span>
               </li>
             </ul>
             <div className="flex space-x-4 mt-4">
@@ -63,7 +63,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 WanderLux. All rights reserved.</p>
+          <p>&copy; 2025 Universeum Expedition. All rights reserved.</p>
         </div>
       </div>
     </footer>
