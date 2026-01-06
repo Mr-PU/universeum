@@ -29,6 +29,66 @@
       "rating": 4.6,
       "reviews": 623,
       "description": "Beach paradise with vibrant nightlife and culture"
+    },
+    {
+      "id": 4,
+      "name": "Jaipur",
+      "image": "https://images.unsplash.com/photo-1575399132326-f8be470efaf0?w=800&q=80",
+      "price": "₹18,999",
+      "duration": "3 Days / 2 Nights",
+      "rating": 4.8,
+      "reviews": 456,
+      "description": "Pink City of India with historic palaces and forts"
+    },
+    {
+      "id": 5,
+      "name": "Rajasthan",
+      "image": "https://images.unsplash.com/photo-1599622773432-71eaaa33eeb0?w=800&q=80",
+      "price": "₹28,999",
+      "duration": "6 Days / 5 Nights",
+      "rating": 4.7,
+      "reviews": 534,
+      "description": "Majestic desert landscape with colorful culture and traditions"
+    },
+    {
+      "id": 6,
+      "name": "Kerala",
+      "image": "https://images.unsplash.com/photo-1592417817098-44b89ffd99d4?w=800&q=80",
+      "price": "₹26,999",
+      "duration": "4 Days / 3 Nights",
+      "rating": 4.9,
+      "reviews": 678,
+      "description": "God's own country with backwaters and spice plantations"
+    },
+    {
+      "id": 7,
+      "name": "Manali",
+      "image": "https://images.unsplash.com/photo-1555958436-abf6b40ec894?w=800&q=80",
+      "price": "₹21,999",
+      "duration": "4 Days / 3 Nights",
+      "rating": 4.7,
+      "reviews": 445,
+      "description": "Himalayan adventure with snow peaks and adventure activities"
+    },
+    {
+      "id": 8,
+      "name": "Agra",
+      "image": "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80",
+      "price": "₹16,999",
+      "duration": "3 Days / 2 Nights",
+      "rating": 4.8,
+      "reviews": 789,
+      "description": "Home of the iconic Taj Mahal and Mughal architecture"
+    },
+    {
+      "id": 9,
+      "name": "Shimla",
+      "image": "https://images.unsplash.com/photo-1515203368741-7814432de65a?w=800&q=80",
+      "price": "₹19,999",
+      "duration": "3 Days / 2 Nights",
+      "rating": 4.6,
+      "reviews": 367,
+      "description": "Queen of the Hills with stunning mountain views"
     }
   ],
   "packages": [
@@ -187,6 +247,162 @@
         "Breakfast and dinner",
         "Local tours",
         "Cultural experiences"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Delhi to Jaipur Royal Heritage",
+      "from": "Delhi",
+      "to": "Jaipur",
+      "image": "https://images.unsplash.com/photo-1575399132326-f8be470efaf0?w=800&q=80",
+      "price": "₹18,999",
+      "duration": "3 Days / 2 Nights",
+      "rating": 4.8,
+      "reviews": 456,
+      "description": "Explore the pink city with its magnificent palaces and forts",
+      "highlights": [
+        "City Palace visit",
+        "Jantar Mantar tour",
+        "Hawa Mahal exploration",
+        "Bazaar shopping",
+        "Local dining experience"
+      ],
+      "includes": [
+        "Train tickets from Delhi",
+        "4-star hotel accommodation",
+        "Breakfast and lunch included",
+        "Guided city tours",
+        "Hotel transfers"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Mumbai to Kerala Backwaters",
+      "from": "Mumbai",
+      "to": "Kerala",
+      "image": "https://images.unsplash.com/photo-1592417817098-44b89ffd99d4?w=800&q=80",
+      "price": "₹26,999",
+      "duration": "5 Days / 4 Nights",
+      "rating": 4.9,
+      "reviews": 678,
+      "description": "God's own country with serene backwaters and lush plantations",
+      "highlights": [
+        "Backwater houseboat cruise",
+        "Spice plantation tour",
+        "Beach relaxation",
+        "Ayurvedic massage spa",
+        "Local boat races"
+      ],
+      "includes": [
+        "Flight from Mumbai to Kochi",
+        "Houseboat accommodation",
+        "All meals on boat",
+        "Guided tours",
+        "Airport transfers"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Delhi to Manali Mountain Adventure",
+      "from": "Delhi",
+      "to": "Manali",
+      "image": "https://images.unsplash.com/photo-1555958436-abf6b40ec894?w=800&q=80",
+      "price": "₹21,999",
+      "duration": "4 Days / 3 Nights",
+      "rating": 4.7,
+      "reviews": 445,
+      "description": "Adventure in the Himalayas with trekking and outdoor activities",
+      "highlights": [
+        "Mountain trekking",
+        "Paragliding",
+        "Rohtang Pass visit",
+        "Adventure sports",
+        "Hot springs"
+      ],
+      "includes": [
+        "Bus from Delhi",
+        "Adventure resort stay",
+        "All meals",
+        "Adventure equipment rental",
+        "Experienced guides"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Bangalore to Rajasthan Desert Safari",
+      "from": "Bangalore",
+      "to": "Rajasthan",
+      "image": "https://images.unsplash.com/photo-1599622773432-71eaaa33eeb0?w=800&q=80",
+      "price": "₹28,999",
+      "duration": "6 Days / 5 Nights",
+      "rating": 4.7,
+      "reviews": 534,
+      "description": "Experience the golden sands and vibrant culture of Rajasthan",
+      "highlights": [
+        "Desert safari",
+        "Camel riding",
+        "Fort exploration",
+        "Cultural folk performances",
+        "Sunset desert viewing"
+      ],
+      "includes": [
+        "Flight from Bangalore",
+        "Resort accommodation",
+        "All meals",
+        "Desert safari with vehicles",
+        "Cultural experiences"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Delhi to Agra Taj Mahal Tour",
+      "from": "Delhi",
+      "to": "Agra",
+      "image": "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80",
+      "price": "₹16,999",
+      "duration": "3 Days / 2 Nights",
+      "rating": 4.8,
+      "reviews": 789,
+      "description": "Witness the magnificent Taj Mahal and explore Mughal heritage",
+      "highlights": [
+        "Taj Mahal sunrise visit",
+        "Agra Fort tour",
+        "Mehtab Bagh sunset",
+        "Local bazaar visit",
+        "Marble inlay workshops"
+      ],
+      "includes": [
+        "Train from Delhi",
+        "3-star hotel",
+        "All meals",
+        "Guided tours",
+        "Hotel transfers"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Chandigarh to Shimla Hill Station",
+      "from": "Chandigarh",
+      "to": "Shimla",
+      "image": "https://images.unsplash.com/photo-1515203368741-7814432de65a?w=800&q=80",
+      "price": "₹19,999",
+      "duration": "3 Days / 2 Nights",
+      "rating": 4.6,
+      "reviews": 367,
+      "description": "Queen of the Hills with scenic beauty and adventure activities",
+      "highlights": [
+        "Ridge walk",
+        "Mall road shopping",
+        "Jakhoo Temple visit",
+        "Cable car ride",
+        "Mountain picnicking"
+      ],
+      "includes": [
+        "Train from Chandigarh",
+        "4-star hotel stay",
+        "Breakfast and dinner",
+        "Guided tours",
+        "Local transport"
       ]
     }
   ],

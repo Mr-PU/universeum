@@ -1,13 +1,34 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Plane, MapPin, Clock, Star, ArrowRight } from 'lucide-react';
 import packagesData from '@/data/data.json';
 
+// Color gradients for fallback images
+const getBackgroundGradient = (id: number): string => {
+  const gradients = [
+    'from-blue-600 to-cyan-500',
+    'from-purple-600 to-pink-500',
+    'from-orange-600 to-red-500',
+    'from-green-600 to-emerald-500',
+    'from-indigo-600 to-blue-500',
+    'from-rose-600 to-pink-500',
+    'from-amber-600 to-orange-500',
+    'from-teal-600 to-green-500',
+    'from-violet-600 to-purple-500',
+  ];
+  return gradients[id % gradients.length];
+};
+
 export default function PackagesPage() {
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
+
+  const handleImageError = (id: number) => {
+    setFailedImages(prev => new Set(prev).add(id));
+  };
   return (
     <main className="min-h-screen bg-gray-900">
       <Header />
@@ -41,11 +62,23 @@ export default function PackagesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-0">
                   {/* Image */}
                   <div className="md:col-span-1 h-64 md:h-auto relative overflow-hidden">
-                    <img
-                      src={pkg.image}
-                      alt={pkg.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
+                    {!failedImages.has(pkg.id) && (
+                      <img
+                        src={pkg.image}
+                        alt={pkg.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        onError={() => handleImageError(pkg.id)}
+                        loading="lazy"
+                      />
+                    )}
+                    {failedImages.has(pkg.id) && (
+                      <div className={`w-full h-full bg-gradient-to-br ${getBackgroundGradient(pkg.id)} group-hover:scale-110 transition-transform duration-300 flex items-center justify-center`}>
+                        <div className="text-white text-center">
+                          <div className="text-4xl mb-2">✈️</div>
+                          <p className="text-xs opacity-90">{pkg.name}</p>
+                        </div>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-transparent md:bg-none"></div>
                   </div>
 

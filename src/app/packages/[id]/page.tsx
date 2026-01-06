@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import Header from '@/components/Header';
@@ -8,10 +8,27 @@ import Footer from '@/components/Footer';
 import { MapPin, Clock, Star, Check, ArrowLeft, Users, Utensils, Hotel } from 'lucide-react';
 import packagesData from '@/data/data.json';
 
+// Color gradients for fallback images
+const getBackgroundGradient = (id: number): string => {
+  const gradients = [
+    'from-blue-600 to-cyan-500',
+    'from-purple-600 to-pink-500',
+    'from-orange-600 to-red-500',
+    'from-green-600 to-emerald-500',
+    'from-indigo-600 to-blue-500',
+    'from-rose-600 to-pink-500',
+    'from-amber-600 to-orange-500',
+    'from-teal-600 to-green-500',
+    'from-violet-600 to-purple-500',
+  ];
+  return gradients[id % gradients.length];
+};
+
 export default function PackageDetailPage() {
   const params = useParams();
   const packageId = parseInt(params.id as string);
   const pkg = packagesData.packages.find(p => p.id === packageId);
+  const [imageError, setImageError] = useState(false);
 
   if (!pkg) {
     return (
@@ -50,7 +67,23 @@ export default function PackageDetailPage() {
       <div className="px-4 sm:px-6 lg:px-8 pb-16">
         <div className="max-w-6xl mx-auto">
           <div className="relative rounded-xl overflow-hidden shadow-2xl shadow-red-900/30 h-96">
-            <img src={pkg.image} alt={pkg.name} className="w-full h-full object-cover" />
+            {!imageError && (
+              <img 
+                src={pkg.image} 
+                alt={pkg.name} 
+                className="w-full h-full object-cover" 
+                onError={() => setImageError(true)}
+                loading="lazy"
+              />
+            )}
+            {imageError && (
+              <div className={`w-full h-full bg-gradient-to-br ${getBackgroundGradient(pkg.id)} flex items-center justify-center`}>
+                <div className="text-white text-center">
+                  <div className="text-6xl mb-2">✈️</div>
+                  <p className="text-lg opacity-90">{pkg.name}</p>
+                </div>
+              </div>
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-8">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{pkg.name}</h1>

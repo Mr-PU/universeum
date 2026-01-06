@@ -8,8 +8,25 @@ import Footer from '@/components/Footer';
 import { Globe, MapPin, Clock, Star, ArrowRight } from 'lucide-react';
 import destinationsData from '@/data/data.json';
 
+// Color gradients for fallback images
+const getBackgroundGradient = (id: number): string => {
+  const gradients = [
+    'from-blue-600 to-cyan-500',
+    'from-purple-600 to-pink-500',
+    'from-orange-600 to-red-500',
+    'from-green-600 to-emerald-500',
+    'from-indigo-600 to-blue-500',
+    'from-rose-600 to-pink-500',
+    'from-amber-600 to-orange-500',
+    'from-teal-600 to-green-500',
+    'from-violet-600 to-purple-500',
+  ];
+  return gradients[id % gradients.length];
+};
+
 function DestinationsContent() {
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
   const packagesRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
 
@@ -24,6 +41,10 @@ function DestinationsContent() {
       }, 100);
     }
   }, [searchParams]);
+
+  const handleImageError = (id: number) => {
+    setFailedImages(prev => new Set(prev).add(id));
+  };
 
   // Get packages for the selected destination
   const getPackagesForDestination = (destinationName: string) => {
@@ -89,13 +110,27 @@ function DestinationsContent() {
                 >
                   {/* Image */}
                   <div className="relative overflow-hidden h-64">
-                    <img
-                      src={destination.image}
-                      alt={destination.name}
-                      className={`w-full h-full object-cover transition-transform duration-300 ${
+                    {!failedImages.has(destination.id) && (
+                      <img
+                        src={destination.image}
+                        alt={destination.name}
+                        className={`w-full h-full object-cover transition-transform duration-300 ${
+                          isSelected ? 'scale-110' : 'group-hover:scale-110'
+                        }`}
+                        onError={() => handleImageError(destination.id)}
+                        loading="lazy"
+                      />
+                    )}
+                    {failedImages.has(destination.id) && (
+                      <div className={`w-full h-full bg-gradient-to-br ${getBackgroundGradient(destination.id)} transition-transform duration-300 flex items-center justify-center ${
                         isSelected ? 'scale-110' : 'group-hover:scale-110'
-                      }`}
-                    />
+                      }`}>
+                        <div className="text-white text-center">
+                          <div className="text-5xl mb-2">🌏</div>
+                          <p className="text-sm opacity-90">{destination.name}</p>
+                        </div>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
                     <div className="absolute top-4 right-4 bg-gradient-to-r from-red-600 to-orange-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
                       {destination.price}
