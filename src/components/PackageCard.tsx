@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { Star, Calendar } from 'lucide-react';
 
 interface Package {
@@ -10,6 +13,7 @@ interface Package {
   rating: number;
   reviews: number;
   description: string;
+  to?: string;
 }
 
 interface PackageCardProps {
@@ -17,8 +21,23 @@ interface PackageCardProps {
 }
 
 export default function PackageCard({ pkg }: PackageCardProps) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    // If it's a destination card (has 'to' property), redirect to destinations page
+    if (pkg.to) {
+      router.push(`/destinations?destination=${encodeURIComponent(pkg.to)}`);
+    } else {
+      // If it's a regular destination from Popular Destinations section, use the name
+      router.push(`/destinations?destination=${encodeURIComponent(pkg.name)}`);
+    }
+  };
+
   return (
-    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl hover:shadow-red-900/50 transition-all duration-300 group border border-red-900/30">
+    <div 
+      onClick={handleClick}
+      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl hover:shadow-red-900/50 transition-all duration-300 group border border-red-900/30 cursor-pointer"
+    >
       <div className="relative overflow-hidden">
         <img 
           src={pkg.image} 
@@ -45,7 +64,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
           </div>
         </div>
         <button className="w-full bg-gradient-to-r from-red-600 to-orange-600 text-white py-3 rounded-lg hover:from-red-700 hover:to-orange-700 transition shadow-lg shadow-red-900/30 hover:shadow-red-900/50 font-semibold">
-          View Details
+          {pkg.to ? 'View Packages' : 'View Details'}
         </button>
       </div>
     </div>

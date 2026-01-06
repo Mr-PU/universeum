@@ -2,63 +2,192 @@
   "destinations": [
     {
       "id": 1,
-      "name": "Bali, Indonesia",
-      "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
-      "price": "₹45,999",
-      "duration": "6 Days / 5 Nights",
-      "rating": 4.8,
-      "reviews": 234,
-      "description": "Tropical paradise with beaches and culture"
+      "name": "Kashmir",
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "price": "₹25,999",
+      "duration": "5 Days / 4 Nights",
+      "rating": 4.9,
+      "reviews": 512,
+      "description": "Paradise on earth with breathtaking valleys and lakes"
     },
     {
       "id": 2,
-      "name": "Swiss Alps",
-      "image": "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80",
-      "price": "₹89,999",
-      "duration": "8 Days / 7 Nights",
-      "rating": 4.9,
-      "reviews": 189,
-      "description": "Majestic mountains and scenic landscapes"
+      "name": "Andaman",
+      "image": "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80",
+      "price": "₹35,999",
+      "duration": "5 Days / 4 Nights",
+      "rating": 4.7,
+      "reviews": 398,
+      "description": "Pristine beaches and crystal clear waters"
     },
     {
       "id": 3,
-      "name": "Maldives",
-      "image": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=80",
-      "price": "₹67,999",
+      "name": "Goa",
+      "image": "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80",
+      "price": "₹22,999",
+      "duration": "4 Days / 3 Nights",
+      "rating": 4.6,
+      "reviews": 623,
+      "description": "Beach paradise with vibrant nightlife and culture"
+    }
+  ],
+  "packages": [
+    {
+      "id": 1,
+      "name": "Delhi to Kashmir Premium",
+      "from": "Delhi",
+      "to": "Kashmir",
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "price": "₹25,999",
+      "duration": "5 Days / 4 Nights",
+      "rating": 4.9,
+      "reviews": 512,
+      "description": "Experience the paradise of Kashmir with luxury accommodations and guided tours",
+      "highlights": [
+        "Shikara ride in Dal Lake",
+        "Visit Mughal Gardens",
+        "Gulmarg skiing/activities",
+        "Pahalgam valley tour",
+        "Kashmir cuisine experience"
+      ],
+      "includes": [
+        "Flight from Delhi to Srinagar",
+        "4-star hotel accommodations",
+        "Daily breakfast and dinner",
+        "All sightseeing tours",
+        "Professional tour guide"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Mumbai to Andaman Escape",
+      "from": "Mumbai",
+      "to": "Andaman",
+      "image": "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80",
+      "price": "₹35,999",
       "duration": "5 Days / 4 Nights",
       "rating": 4.7,
-      "reviews": 312,
-      "description": "Luxury overwater villas and pristine beaches"
+      "reviews": 398,
+      "description": "Relax on pristine beaches and explore the beauty of Andaman Islands",
+      "highlights": [
+        "Beach relaxation",
+        "Snorkeling and diving",
+        "Glass-bottom boat tour",
+        "Cellular Jail visit",
+        "Island hopping",
+        "Sunset cruises"
+      ],
+      "includes": [
+        "Flight from Mumbai to Port Blair",
+        "Resort accommodation",
+        "Breakfast and dinner",
+        "Beach activities and tours",
+        "Travel insurance"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Delhi to Goa Beach Holiday",
+      "from": "Delhi",
+      "to": "Goa",
+      "image": "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80",
+      "price": "₹22,999",
+      "duration": "4 Days / 3 Nights",
+      "rating": 4.6,
+      "reviews": 623,
+      "description": "Sun, sand, and sea - a perfect beach getaway to Goa",
+      "highlights": [
+        "Beach resort stay",
+        "Water sports activities",
+        "Fort exploration",
+        "Spice plantation tour",
+        "Nightlife and entertainment"
+      ],
+      "includes": [
+        "Flight from Delhi to Goa",
+        "Beach resort accommodation",
+        "All meals included",
+        "Water sports activities",
+        "Airport transfers"
+      ]
     },
     {
       "id": 4,
-      "name": "Dubai, UAE",
-      "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80",
-      "price": "₹52,999",
-      "duration": "5 Days / 4 Nights",
-      "rating": 4.6,
-      "reviews": 278,
-      "description": "Modern architecture and desert adventures"
+      "name": "Bangalore to Kashmir Adventure",
+      "from": "Bangalore",
+      "to": "Kashmir",
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "price": "₹32,999",
+      "duration": "6 Days / 5 Nights",
+      "rating": 4.8,
+      "reviews": 287,
+      "description": "Adventure and relaxation combined in the beautiful valleys of Kashmir",
+      "highlights": [
+        "Mountain trekking",
+        "Shikara boat rides",
+        "Betaab Valley",
+        "Local market exploration",
+        "Photography tours"
+      ],
+      "includes": [
+        "Flight from Bangalore to Srinagar",
+        "Houseboat and hotel stay",
+        "All meals",
+        "Guided tours",
+        "Adventure equipment rental"
+      ]
     },
     {
       "id": 5,
-      "name": "Paris, France",
-      "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
-      "price": "₹78,999",
-      "duration": "7 Days / 6 Nights",
-      "rating": 4.9,
+      "name": "Chennai to Andaman Paradise",
+      "from": "Chennai",
+      "to": "Andaman",
+      "image": "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80",
+      "price": "₹28,999",
+      "duration": "5 Days / 4 Nights",
+      "rating": 4.8,
       "reviews": 445,
-      "description": "City of love, art, and culinary delights"
+      "description": "Tropical paradise awaits with pristine beaches and marine life",
+      "highlights": [
+        "Havelock Island beaches",
+        "Radhanagar Beach",
+        "Scuba diving",
+        "Elephant Beach activities",
+        "North Bay island tour"
+      ],
+      "includes": [
+        "Flight from Chennai to Port Blair",
+        "Beach resort",
+        "All meals",
+        "Water sports",
+        "Island tours and guides"
+      ]
     },
     {
       "id": 6,
-      "name": "Santorini, Greece",
-      "image": "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&q=80",
-      "price": "₹71,999",
-      "duration": "6 Days / 5 Nights",
-      "rating": 4.8,
-      "reviews": 267,
-      "description": "White-washed buildings and stunning sunsets"
+      "name": "Kolkata to Goa Explorer",
+      "from": "Kolkata",
+      "to": "Goa",
+      "image": "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80",
+      "price": "₹26,999",
+      "duration": "5 Days / 4 Nights",
+      "rating": 4.7,
+      "reviews": 356,
+      "description": "Experience the vibrant culture and beautiful beaches of Goa",
+      "highlights": [
+        "Historical monuments",
+        "Beach parties",
+        "Backwater cruises",
+        "Local cuisine",
+        "Art and craft workshops"
+      ],
+      "includes": [
+        "Flight from Kolkata to Goa",
+        "3-star hotel",
+        "Breakfast and dinner",
+        "Local tours",
+        "Cultural experiences"
+      ]
     }
   ],
   "testimonials": [
@@ -85,6 +214,30 @@
       "image": "https://i.pravatar.cc/150?img=5",
       "rating": 5,
       "text": "Professional service and great value for money. Will definitely book again!"
+    },
+    {
+      "id": 4,
+      "name": "Bhanu Gangwar",
+      "location": "Jaipur",
+      "image": "https://i.pravatar.cc/150?img=7",
+      "rating": 5,
+      "text": "Exceptional service! The Kashmir package exceeded all my expectations. The team was very responsive and helpful throughout the journey."
+    },
+    {
+      "id": 5,
+      "name": "Oshowendra",
+      "location": "Pune",
+      "image": "https://i.pravatar.cc/150?img=9",
+      "rating": 5,
+      "text": "Incredible experience with the Andaman package! The beaches were pristine and the activities were well organized. Will definitely book again!"
+    },
+    {
+      "id": 6,
+      "name": "Prateek Moon",
+      "location": "Gurgaon",
+      "image": "https://i.pravatar.cc/150?img=11",
+      "rating": 5,
+      "text": "Outstanding! The Goa package was perfect for our family vacation. Great value for money and amazing hospitality. Highly recommended!"
     }
   ]
 }

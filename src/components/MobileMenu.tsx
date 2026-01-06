@@ -20,10 +20,11 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <X className="w-6 h-6" />
           </button>
           <nav className="flex flex-col space-y-4">
-            <a href="#home" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Home</a>
-            <a href="#destinations" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Destinations</a>
-            <a href="#packages" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Packages</a>
-            <a href="#testimonials" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Reviews</a>
+            <a href="/" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Home</a>
+            <a href="/destinations" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Destinations</a>
+            <a href="/packages" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Packages</a>
+            <a href="/blog" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Blog</a>
+            <a href="/#testimonials" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Reviews</a>
             <a href="#contact" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Contact</a>
             <button className="text-left text-gray-300 hover:text-orange-400 transition">Login</button>
             <button className="bg-gradient-to-r from-red-600 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-red-700 hover:to-orange-700 transition text-left shadow-lg shadow-red-900/50">
