@@ -27,10 +27,9 @@ export default function Header() {
             </nav>
             
             <div className="hidden md:flex items-center space-x-4">
-              <button className="text-gray-300 hover:text-orange-400 transition">Login</button>
-              <button className="bg-gradient-to-r from-red-600 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-red-700 hover:to-orange-700 transition shadow-lg shadow-red-900/50">
+              <a href="/booking" className="bg-gradient-to-r from-red-600 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-red-700 hover:to-orange-700 transition shadow-lg shadow-red-900/50">
                 Book Now
-              </button>
+              </a>
             </div>
             
             <button className="md:hidden" onClick={() => setMobileMenuOpen(true)}>
