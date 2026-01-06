@@ -19,20 +19,20 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4 text-orange-400">Quick Links</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-orange-400 transition">About Us</a></li>
-              <li><a href="#" className="hover:text-orange-400 transition">Destinations</a></li>
-              <li><a href="#" className="hover:text-orange-400 transition">Travel Packages</a></li>
-              <li><a href="#" className="hover:text-orange-400 transition">Contact</a></li>
+              <li><a href="/#about" className="hover:text-orange-400 transition">About Us</a></li>
+              <li><a href="/destinations" className="hover:text-orange-400 transition">Destinations</a></li>
+              <li><a href="/packages" className="hover:text-orange-400 transition">Travel Packages</a></li>
+              <li><a href="/#contact" className="hover:text-orange-400 transition">Contact</a></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-semibold mb-4 text-orange-400">Support</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-orange-400 transition">FAQs</a></li>
-              <li><a href="#" className="hover:text-orange-400 transition">Terms & Conditions</a></li>
-              <li><a href="#" className="hover:text-orange-400 transition">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-orange-400 transition">Cancellation Policy</a></li>
+              <li><a href="/faqs" className="hover:text-orange-400 transition">FAQs</a></li>
+              <li><a href="/terms-conditions" className="hover:text-orange-400 transition">Terms & Conditions</a></li>
+              <li><a href="/privacy-policy" className="hover:text-orange-400 transition">Privacy Policy</a></li>
+              <li><a href="/cancellation-policy" className="hover:text-orange-400 transition">Cancellation Policy</a></li>
             </ul>
           </div>
           
