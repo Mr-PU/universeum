@@ -5,45 +5,94 @@ import { X } from 'lucide-react';
 
 export default function PhonePopup() {
   const [isVisible, setIsVisible] = useState(false);
-  const [phone, setPhone] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    numberOfPeople: '1',
+    travelDate: '',
+    description: '',
+  });
   const [submitted, setSubmitted] = useState(false);
-  const [hasShown, setHasShown] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     // Show popup after 3 seconds on initial page load
     const timer = setTimeout(() => {
       setIsVisible(true);
-      setHasShown(true);
     }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate phone number (basic validation)
-    if (phone.replace(/\D/g, '').length < 10) {
-      alert('Please enter a valid phone number');
-      return;
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
     }
 
-    // Here you can send the phone number to your backend
-    console.log('Phone number submitted:', phone);
-    
-    // Optional: Send to backend
-    // fetch('/api/contact', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ phone })
-    // });
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (formData.phone.replace(/\D/g, '').length < 10) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
 
-    setSubmitted(true);
-    
-    // Close popup after 2 seconds
-    setTimeout(() => {
-      setIsVisible(false);
-    }, 2000);
+    // Email is optional, but if provided, must be valid
+    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+
+    if (!formData.numberOfPeople || parseInt(formData.numberOfPeople) < 1) {
+      newErrors.numberOfPeople = 'Number of people is required';
+    }
+
+    if (!formData.travelDate) {
+      newErrors.travelDate = 'Travel date is required';
+    }
+
+    // Description is optional, no validation needed
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+    // Clear error for this field
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: '',
+      }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      // Here you can send the form data to your backend
+      console.log('Form submitted:', formData);
+
+      // Optional: Send to backend
+      // fetch('/api/popup-inquiry', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(formData)
+      // });
+
+      setSubmitted(true);
+
+      // Close popup after 3 seconds
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
+    }
   };
 
   const handleClose = () => {
@@ -53,8 +102,8 @@ export default function PhonePopup() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/70 via-red-950/50 to-orange-950/70 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-      <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 border border-orange-500/30 rounded-2xl shadow-2xl max-w-lg w-full p-8 animate-fadeIn relative">
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/70 via-red-950/50 to-orange-950/70 flex items-center justify-center z-50 p-4 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 border border-orange-500/30 rounded-2xl shadow-2xl max-w-2xl w-full p-8 animate-fadeIn relative my-8">
         {/* Close button */}
         <button
           onClick={handleClose}
@@ -66,32 +115,130 @@ export default function PhonePopup() {
 
         {!submitted ? (
           <>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent mb-3">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent mb-2">
               Plan Your Dream Trip!
             </h2>
-            <p className="text-gray-300 mb-8 text-lg leading-relaxed">
-              Get personalized travel recommendations and exclusive offers. Share your phone number and we'll be in touch soon with amazing deals tailored just for you.
+            <p className="text-gray-300 mb-6 text-sm leading-relaxed">
+              Share your travel details and get personalized recommendations with exclusive offers.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Name */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-semibold text-gray-200 mb-3">
-                  Phone Number
+                <label htmlFor="name" className="block text-xs font-semibold text-gray-200 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="John Doe"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition ${
+                    errors.name ? 'border-red-500' : 'border-orange-500/50'
+                  }`}
+                />
+                {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label htmlFor="phone" className="block text-xs font-semibold text-gray-200 mb-2">
+                  Phone Number *
                 </label>
                 <input
                   type="tel"
                   id="phone"
+                  name="phone"
                   placeholder="+91 9876543210"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-5 py-3 bg-gray-700 border border-orange-500/50 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
-                  required
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition ${
+                    errors.phone ? 'border-red-500' : 'border-orange-500/50'
+                  }`}
                 />
+                {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
+              </div>
+
+              {/* Email */}
+              <div>
+                <label htmlFor="email" className="block text-xs font-semibold text-gray-200 mb-2">
+                  Email Address (Optional)
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="john@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition ${
+                    errors.email ? 'border-red-500' : 'border-orange-500/50'
+                  }`}
+                />
+                {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+              </div>
+
+              {/* Number of People */}
+              <div>
+                <label htmlFor="numberOfPeople" className="block text-xs font-semibold text-gray-200 mb-2">
+                  Number of Travelers *
+                </label>
+                <input
+                  type="number"
+                  id="numberOfPeople"
+                  name="numberOfPeople"
+                  min="1"
+                  max="20"
+                  value={formData.numberOfPeople}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-2 bg-gray-700 border rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition ${
+                    errors.numberOfPeople ? 'border-red-500' : 'border-orange-500/50'
+                  }`}
+                />
+                {errors.numberOfPeople && <p className="text-red-400 text-xs mt-1">{errors.numberOfPeople}</p>}
+              </div>
+
+              {/* Travel Date */}
+              <div>
+                <label htmlFor="travelDate" className="block text-xs font-semibold text-gray-200 mb-2">
+                  Preferred Travel Date *
+                </label>
+                <input
+                  type="date"
+                  id="travelDate"
+                  name="travelDate"
+                  value={formData.travelDate}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-2 bg-gray-700 border rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition ${
+                    errors.travelDate ? 'border-red-500' : 'border-orange-500/50'
+                  }`}
+                />
+                {errors.travelDate && <p className="text-red-400 text-xs mt-1">{errors.travelDate}</p>}
+              </div>
+              {/* Description */}
+              <div>
+                <label htmlFor="description" className="block text-xs font-semibold text-gray-200 mb-2">
+                  Trip Description (Optional)
+                </label>
+                <textarea
+                  id="description"
+                  name="description"
+                  placeholder="Tell us about your ideal trip..."
+                  value={formData.description}
+                  onChange={handleChange}
+                  rows={3}
+                  className={`w-full px-4 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition resize-none ${
+                    errors.description ? 'border-red-500' : 'border-orange-500/50'
+                  }`}
+                />
+                {errors.description && <p className="text-red-400 text-xs mt-1">{errors.description}</p>}
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-lg hover:shadow-xl text-lg"
+                className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-lg hover:shadow-xl text-sm"
               >
                 Get Exclusive Deals
               </button>
@@ -102,10 +249,10 @@ export default function PhonePopup() {
             </form>
           </>
         ) : (
-          <div className="text-center py-12">
-            <div className="mb-6">
+          <div className="text-center py-8">
+            <div className="mb-4">
               <svg
-                className="w-20 h-20 mx-auto text-orange-400"
+                className="w-16 h-16 mx-auto text-orange-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -118,11 +265,11 @@ export default function PhonePopup() {
                 />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3">
+            <h3 className="text-xl font-bold text-white mb-2">
               Thank You!
             </h3>
-            <p className="text-gray-300 text-lg">
-              We'll reach out shortly with amazing travel offers.
+            <p className="text-gray-300 text-sm">
+              We'll reach out shortly with amazing travel offers tailored to your preferences.
             </p>
           </div>
         )}
