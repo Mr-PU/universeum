@@ -25,7 +25,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <a href="/packages" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Packages</a>
             <a href="/blog" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Blog</a>
             <a href="/#testimonials" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Reviews</a>
-            <a href="#contact" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Contact</a>
+            <a href="/contact-us" className="text-gray-300 hover:text-orange-400 transition" onClick={onClose}>Contact</a>
             <a href="/booking" className="bg-gradient-to-r from-red-600 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-red-700 hover:to-orange-700 transition shadow-lg shadow-red-900/50 block text-center">
               Book Now
             </a>

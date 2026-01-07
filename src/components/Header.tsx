@@ -23,7 +23,7 @@ export default function Header() {
               <a href="/packages" className="text-gray-300 hover:text-orange-400 transition">Packages</a>
               <a href="/blog" className="text-gray-300 hover:text-orange-400 transition">Blog</a>
               <a href="/#testimonials" className="text-gray-300 hover:text-orange-400 transition">Reviews</a>
-              <a href="#contact" className="text-gray-300 hover:text-orange-400 transition">Contact</a>
+              <a href="/contact-us" className="text-gray-300 hover:text-orange-400 transition">Contact</a>
             </nav>
             
             <div className="hidden md:flex items-center space-x-4">
