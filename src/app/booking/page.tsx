@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { MapPin, Phone, Mail, Users, Calendar, MapPinIcon } from 'lucide-react';
+import { MapPin, Phone, Mail, Users, Calendar, MapPinIcon, AlertCircle } from 'lucide-react';
 
 export default function BookingPage() {
   const [formData, setFormData] = useState({
@@ -19,6 +19,8 @@ export default function BookingPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const destinations = [
@@ -90,35 +92,61 @@ export default function BookingPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      // Here you can send the booking data to your backend
-      console.log('Booking submitted:', formData);
+    if (!validateForm()) return;
 
-      // Optional: Send to backend
-      // fetch('/api/booking', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
+    setIsLoading(true);
+    setSubmitError('');
 
-      setSubmitted(true);
-
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setFormData({
-          fullName: '',
-          email: '',
-          phone: '',
-          destination: '',
-          travelDate: '',
-          returnDate: '',
-          travelers: '1',
-          accommodationType: 'standard',
-          specialRequests: '',
+    const submitToApi = async () => {
+      try {
+        const response = await fetch('/api/submit-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.fullName,
+            email: formData.email,
+            phone: formData.phone,
+            destination: formData.destination,
+            travelDate: formData.travelDate,
+            returnDate: formData.returnDate,
+            travelers: formData.travelers,
+            accommodationType: formData.accommodationType,
+            description: formData.specialRequests || 'No special requests',
+            source: 'Booking Page',
+          }),
         });
-        setSubmitted(false);
-      }, 3000);
-    }
+
+        const result = await response.json();
+        if (result.success) {
+          setSubmitted(true);
+          setFormData({
+            fullName: '',
+            email: '',
+            phone: '',
+            destination: '',
+            travelDate: '',
+            returnDate: '',
+            travelers: '1',
+            accommodationType: 'standard',
+            specialRequests: '',
+          });
+
+          // Reset after 3 seconds
+          setTimeout(() => {
+            setSubmitted(false);
+          }, 3000);
+        } else {
+          setSubmitError(result.error || 'Failed to submit booking. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        setSubmitError('An error occurred. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    submitToApi();
   };
 
   return (
@@ -163,6 +191,13 @@ export default function BookingPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 border border-orange-500/30 rounded-2xl p-8 shadow-2xl">
+              {submitError && (
+                <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-4 flex gap-3 mb-8">
+                  <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-red-300 text-sm">{submitError}</p>
+                </div>
+              )}
+
               {/* Personal Information */}
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
@@ -354,9 +389,12 @@ export default function BookingPage() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-lg hover:shadow-xl text-lg"
+                disabled={isLoading}
+                className={`w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-lg hover:shadow-xl text-lg ${
+                  isLoading ? 'opacity-75 cursor-not-allowed' : ''
+                }`}
               >
-                Complete Booking Request
+                {isLoading ? 'Submitting...' : 'Complete Booking Request'}
               </button>
 
               <p className="text-xs text-gray-400 text-center mt-4">

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Phone, Mail, MapPin, Clock, Send, Smartphone, Globe } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, Smartphone, Globe, AlertCircle } from 'lucide-react';
 
 export default function ContactUsPage() {
   const [formData, setFormData] = useState({
@@ -15,6 +15,8 @@ export default function ContactUsPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
@@ -68,31 +70,53 @@ export default function ContactUsPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      // Here you can send the contact form data to your backend
-      console.log('Contact form submitted:', formData);
+    if (!validateForm()) return;
 
-      // Optional: Send to backend
-      // fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
+    setIsLoading(true);
+    setSubmitError('');
 
-      setSubmitted(true);
-
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: '',
+    const submitToApi = async () => {
+      try {
+        const response = await fetch('/api/submit-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            subject: formData.subject,
+            description: formData.message,
+            source: 'Contact Us Page',
+          }),
         });
-        setSubmitted(false);
-      }, 3000);
-    }
+
+        const result = await response.json();
+        if (result.success) {
+          setSubmitted(true);
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            subject: '',
+            message: '',
+          });
+
+          // Reset after 3 seconds
+          setTimeout(() => {
+            setSubmitted(false);
+          }, 3000);
+        } else {
+          setSubmitError(result.error || 'Failed to send message. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        setSubmitError('An error occurred. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    submitToApi();
   };
 
   const contactMethods = [
@@ -192,6 +216,13 @@ export default function ContactUsPage() {
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <h2 className="text-2xl font-bold text-white mb-6">Send Us a Message</h2>
+
+                    {submitError && (
+                      <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-4 flex gap-3">
+                        <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-red-300 text-sm">{submitError}</p>
+                      </div>
+                    )}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       {/* Name */}
@@ -295,10 +326,13 @@ export default function ContactUsPage() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                      disabled={isLoading}
+                      className={`w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 ${
+                        isLoading ? 'opacity-75 cursor-not-allowed' : ''
+                      }`}
                     >
                       <Send className="w-5 h-5" />
-                      Send Message
+                      {isLoading ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
                 )}

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { config } from '@/config/config';
 
 export default function PhonePopup() {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,13 +15,17 @@ export default function PhonePopup() {
     description: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    // Show popup after 3 seconds on initial page load
+    // Only show popup if enabled in config
+    if (!config.popup.enabled) return;
+
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 3000);
+    }, config.popup.delaySeconds * 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -72,26 +77,56 @@ export default function PhonePopup() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      // Here you can send the form data to your backend
-      console.log('Form submitted:', formData);
+    if (!validateForm()) return;
 
-      // Optional: Send to backend
-      // fetch('/api/popup-inquiry', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
+    setIsLoading(true);
+    setSubmitError('');
 
-      setSubmitted(true);
+    try {
+      const response = await fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          travelers: formData.numberOfPeople,
+          travelDate: formData.travelDate,
+          description: formData.description,
+          source: 'Homepage Popup',
+        }),
+      });
 
-      // Close popup after 3 seconds
-      setTimeout(() => {
-        setIsVisible(false);
-      }, 3000);
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          numberOfPeople: '1',
+          travelDate: '',
+          description: '',
+        });
+
+        setTimeout(() => {
+          setIsVisible(false);
+          setSubmitted(false);
+        }, 2000);
+      } else {
+        setSubmitError(result.error || 'Failed to submit form. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitError('An error occurred. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -103,7 +138,7 @@ export default function PhonePopup() {
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-gray-900/70 via-red-950/50 to-orange-950/70 flex items-center justify-center z-50 p-4 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 border border-orange-500/30 rounded-2xl shadow-2xl max-w-2xl w-full p-8 animate-fadeIn relative my-8">
+      <div className={`bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 border border-orange-500/30 rounded-2xl shadow-2xl ${config.popup.maxWidth} w-full p-8 animate-fadeIn relative my-8`}>
         {/* Close button */}
         <button
           onClick={handleClose}
@@ -121,6 +156,12 @@ export default function PhonePopup() {
             <p className="text-gray-300 mb-6 text-sm leading-relaxed">
               Share your travel details and get personalized recommendations with exclusive offers.
             </p>
+
+            {submitError && (
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p className="text-red-400 text-sm">{submitError}</p>
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name */}
@@ -238,9 +279,12 @@ export default function PhonePopup() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-lg hover:shadow-xl text-sm"
+                disabled={isLoading}
+                className={`w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-lg hover:shadow-xl text-sm ${
+                  isLoading ? 'opacity-75 cursor-not-allowed' : ''
+                }`}
               >
-                Get Exclusive Deals
+                {isLoading ? 'Submitting...' : 'Get Exclusive Deals'}
               </button>
 
               <p className="text-xs text-gray-400 text-center">
